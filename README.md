@@ -11,6 +11,8 @@ Bu repo, Java'dan Spring Framework'e geçiş sürecimde yaptığım tüm çalı�
 - OOP (Sınıflar, Kalıtım, Polimorfizm, Abstraction, Interface)
 - Exception Handling
 - Koleksiyonlar (List, Set, Map)
+- Java 8 - Stream Apı Usage
+- Concurrency & Multithreaded - Parallel Programming
 - Maven
 - JDBC / SQL
 
