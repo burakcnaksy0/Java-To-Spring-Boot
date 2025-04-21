@@ -1,4 +1,8 @@
-
+// Sınıflar arasında pek çok ortak özellik ve davranış bulunduğu durumlarda tasarlanan soyut sınıflardır.
+// Kod tekrarını engelleyerek hem daha derli toplu bir görüntü sağlar hem de hata yapma riskini azaltır.
+// Ortak bir şablon üzerinden ilerleme imkanı sunar ve bu sınıfların temel amacı da budur.
+// Abstract sınıflardan nesne üretimi gerçekleştirilemez
+// Ama bu sınıftan kalıtım alan sınıflar (örneğin Customer) onun özelliklerini ve metodlarını kullanabilir.
 public abstract class Person {
 	private Long id;
 	private String name;
@@ -8,25 +12,26 @@ public abstract class Person {
 	private String password;
 	private String address;
 	
-	public void changePassword(String newPassword) {
-	    if (this.password.equals(getPassword())) {
+	// Bu metodun amacı şifreyi değiştirmektir.
+	// Eski şifre ve yeni şifre girilir , eski şifre doğru girildiyse yeni şifre atanır.
+	public void changePassword(String oldPassword, String newPassword) {
+	    if (this.password.equals(oldPassword)) {
 	        this.password = newPassword;
 	    } else {
 	        throw new IllegalArgumentException("Eski şifre yanlış!");
 	    }
 	}
-
-	
+	// Kullanıcının ad ve soyadını bir arada verir.
 	public String getFullName() {
 		return getName() + " " + getSurname();
 	}
 	
+	// Kullanıcının e-posta ve telefon bilgilerini günceller.
 	public void updateContactInfo(String email, String phoneNumber) {
-	    this.email = email;
-	    this.phoneNumber = phoneNumber;
+		this.email = email;
+		this.phoneNumber = phoneNumber;
 	}
 
-	
 	public Long getId() {
 		return id;
 	}

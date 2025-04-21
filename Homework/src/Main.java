@@ -51,6 +51,7 @@ public class Main {
 		System.out.println("Toplam Tutar: " + total + " TL");
 		System.out.println("Satıcı: " + product1.getSeller().getCompanyName());
 		System.out.println("Ürün: " + product1.getName() + " x " + item1.getQuantity());
+		System.out.println("Kayıt Tarihi: " +customer.getRegistrationDate());
 
 		// 6. Stok güncelle
 		product1.updateStock(-item1.getQuantity());

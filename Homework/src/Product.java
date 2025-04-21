@@ -8,31 +8,35 @@ public class Product {
     private String description;
     private String category;
     private double price;
-    private int stockQuantity;
-    private Seller seller;
+    private int stockQuantity;  // 	Ürün stoğunda kaç adet var
+    private Seller seller;   // Ürünü satan kişi ya da firma (Satıcı nesnesi)
     private LocalDate createdDate;
-    private double rating;
+    private double rating;	// Ürünün ortalama puanı (1-5 arası olabilir)
     private List<String> images = new ArrayList<String>();
-    private boolean isAvailable;
+    private boolean isAvailable;	// Ürün satışa açık mı (true) / değil mi (false)
     
+    // Ürün stokta var mı ve satışta mı kontrol eder.
+    // true dönerse ürün hem stoğu var hem de satışta demektir.
     public boolean isInStock() {
         return this.stockQuantity > 0 && this.isAvailable;
     }
-
+    
+    // Ürün stoğunu günceller.
     public void updateStock(int quantity) {
         this.stockQuantity += quantity;
         if (this.stockQuantity < 0) {
             this.stockQuantity = 0; // stok negatife düşmesin
         }
     }
-
+    // Ürüne yüzde cinsinden indirim uygular. %10 , %15 ..
     public void applyDiscount(double percentage) {
         if (percentage < 0 || percentage > 100) {
             throw new IllegalArgumentException("Geçersiz indirim yüzdesi!");
         }
         this.price = this.price * (1 - percentage / 100.0);
     }
-
+    // Vergili fiyatı hesaplar.
+    // Örnek: fiyat = 100, KDV = 18 → sonuç: 118
     public double getPriceWithTax(double taxRate) {
         return this.price + (this.price * taxRate / 100.0);
     }

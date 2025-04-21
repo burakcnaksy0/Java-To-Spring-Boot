@@ -2,24 +2,31 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Order {
+// Birden fazla OrderItem içerir	
+public class Order {	// Bir müşterinin verdiği bütün siparişi temsil eder
     private Long id;
-    private Customer customer;
-    private List<OrderItem> items = new ArrayList<OrderItem>();
+    private Customer customer;	// 	Siparişi veren müşteri
+    private List<OrderItem> items = new ArrayList<OrderItem>();// Siparişteki ürünler ve miktar bilgisi (her bir ürün OrderItem ile tutulur)
     private LocalDate orderDate;
     private double totalAmount;
-    private String status; // Örn: Pending, Shipped, Delivered, Cancelled
-    private String shippingAddress;
-    private String paymentMethod; // Örn: Credit Card, PayPal, etc.
-    private boolean isPaid;
+    private String status; // Siparişin durumu. Örn: Pending, Shipped, Delivered, Cancelled
+    private String shippingAddress; // 	Teslimat adresi
+    private String paymentMethod; // Ödeme yöntemi Örn: Credit Card, PayPal, etc.
+    private boolean isPaid;	// Ödeme yapıldı mı (true) / yapılmadı mı (false)
     
+    // Siparişin durumunu günceller.
+    // Örn: "Pending" → "Shipped" gibi geçişleri sağlar. 
     public void changeStatus(String newStatus) {
         this.status = newStatus;
     }
+    
+    // Siparişin kargoya verilmeye uygun olup olmadığını kontrol eder.
+    //Eğer sipariş durumu "Paid" veya "Confirmed" ise true döner.
     public boolean isShippable() {
         return this.status.equalsIgnoreCase("Paid") || this.status.equalsIgnoreCase("Confirmed");
     }
-
+    
+    // Sipariş içindeki tüm ürünlerin toplam tutarını hesaplar.
     public double calculateTotalAmount() {
         double total = 0.0;
         for (OrderItem item : items) {

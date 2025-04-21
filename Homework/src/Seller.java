@@ -8,14 +8,18 @@ public class Seller extends Person {
 	private String companyName;
 	private String taxNumber;
 	private LocalDate joinedDate;
-	private List<Product> productList = new ArrayList<Product>();
+	private List<Product> productList = new ArrayList<Product>(); // satıcı da bulunan ürünlerin listesi burada tutulur.
 	private double sellerRating;
 	private boolean isAuthorized;
-	
-	public List<Product> getAllProducts() {
-	    return new ArrayList<>(productList);
-	}
 
+	// Satıcının sahip olduğu tüm ürünlerin listesini kopya olarak döner.
+	// Bu şekilde dışarıdan gelen müdahaleler productList’i doğrudan değiştiremez.
+	public List<Product> getAllProducts() {
+		return new ArrayList<>(productList);
+	}
+	
+	// Satıcının sattığı ürünlerin ortalama puanını hesaplar.
+	// Eğer ürün yoksa 0.0 döner. Aksi halde tüm ürünlerin rating değeri toplanır ve ortalama alınır.
 	public double calculateAverageRating() {
 		if (productList.isEmpty())
 			return 0.0;
@@ -26,18 +30,32 @@ public class Seller extends Person {
 			totalRating += product.getRating();
 			count++;
 		}
-		return count == 0 ? 0.0 : totalRating / count;
+		return count == 0 ? 0.0 : totalRating / count; // ürün sayısı(count) 0 ise 0.0 döndür ? (ama değilse) totalRating/count döndür
 	}
-
+	
+	// Stokta olan ürünleri filtreleyip döndürür.
+	// Product::isInStock → her ürünün isInStock() metodunu çağırarak stokta olup olmadığını kontrol eder.
 	public List<Product> getAvailableProducts() {
 		return productList.stream().filter(Product::isInStock).collect(Collectors.toList());
-	}
+		// Stream, veri üzerinde işlem zinciri kurmamızı sağlar.
+		
+		// Product::isInStock → Bu, her ürün için isInStock() metodunu çağırır.
+		// Yani ürün stokta varsa (true), akışta kalır.
+		// Değilse, atılır.
+		// Bu işlem sonucunda yalnızca stokta olan ürünler akışta kalır.
+		
+		// .collect(Collectors.toList())
+		// Akış işlemleri tamamlandıktan sonra sonuçları bir Listeye (List<Product>) çevirir.
+		// Collectors.toList() → Stream'den tekrar bir List oluşturur.
 
+		
+	}
+	// satıcıya ürün eklendi
 	public void addProduct(Product product) {
 		System.out.println(product + " satıcıya eklendi.");
 		productList.add(product);
 	}
-
+	// satıcıdasn ürün çıkarıldı
 	public void removeProduct(Product product) {
 		System.out.println(product + " satıcıdan çıkarıldı.");
 		productList.remove(product);

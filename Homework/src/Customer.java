@@ -4,33 +4,39 @@ import java.util.List;
 
 public class Customer extends Person {
 	private String customerNumber;
-	private LocalDate registrationDate;
-	private List<Order> orders = new ArrayList<Order>();
-	private List<Product> favoriteProducts = new ArrayList<Product>();
-	private String membershipLevel; // Örn: Silver, Gold, Platinum
-	private boolean isVerified;
+	private LocalDate registrationDate; // sisteme kayıt tarihi
+	private List<Order> orders = new ArrayList<Order>();   // müşterinin verdiği siparişler bu list te tutulur
+	private List<Product> favoriteProducts = new ArrayList<Product>();  // müşterinin favori ürün listesi bu list te tutulur.
+	private String membershipLevel; // Örn: Silver, Gold, Platinum  (Müşterinin üyelik seviyesi ) 
+	private boolean isVerified;  // müşteri doğrulanmış mı?
 	
+	// Bu metod, müşterinin şimdiye kadar yaptığı tüm harcamaların toplamını döndürür.
 	public double getTotalSpent() {
-	    double total = 0.0;
-	    for (Order order : orders) {
-	        total += order.calculateTotalAmount();
-	    }
-	    return total;
+		double total = 0.0;
+		for (Order order : orders) {
+			total += order.calculateTotalAmount();
+		}
+		return total;
+	}
+	// Sipariş geçmişini döner.
+	// Yeni bir liste ile döndürerek orijinal orders listesinin dışardan değiştirilmesini engeller
+	public List<Order> getOrderHistory() {
+		return new ArrayList<>(orders); // Kopya döndürmek güvenli olur
 	}
 	
-	public List<Order> getOrderHistory() {
-	    return new ArrayList<>(orders); // Kopya döndürmek güvenli olur
-	}
-
+	// Yeni bir siparişi orders listesine ekler ve konsola bilgi mesajı basar.
 	public void addOrder(Order order) {
 		System.out.println(order + " müşteriye eklendi");
 		orders.add(order);
 	}
-
+	
+	// Belirtilen ürünü müşterinin favori ürünlerine ekler.
 	public void addFavouriteProduct(Product product) {
 		System.out.println(product + " müşteri favoriledi.");
 		favoriteProducts.add(product);
 	}
+	
+	// Favoriler listesinden bir ürünü çıkarır.
 	public void removeFavouriteProduct(Product product) {
 		System.out.println(product + " müşterinin favorisinden kaldırıldı.");
 		favoriteProducts.remove(product);

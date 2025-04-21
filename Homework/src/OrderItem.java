@@ -1,9 +1,11 @@
-public class OrderItem {
+// Bir OrderItem, bir ürünü temsil eder
+public class OrderItem {	// Sipariş içerisindeki tek bir ürünün detaylarını tutar
 	
-    private Product product;
-    private int quantity;
-    private double unitPrice;
+    private Product product;	// 	Sipariş edilen ürün nesnesi
+    private int quantity;	// 	Bu üründen kaç adet sipariş edildiğini belirtir
+    private double unitPrice;	// Ürünün sipariş anındaki birim fiyatı (indirimli olabilir)
     
+    // Sipariş edilen bu ürünün ara toplamını (subtotal) hesaplar.
     public double getSubtotal() {
         return this.unitPrice * this.quantity;
     }
