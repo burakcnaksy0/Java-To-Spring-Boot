@@ -1,4 +1,4 @@
-package oop;
+package ObjectOrientedProgramming;
 
 public class CorporateCustomer extends Customer {
 
